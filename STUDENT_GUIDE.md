@@ -149,11 +149,19 @@ Public bucket ဖြစ်သော်လည်း client-side ကနေ ပု�
 > ဤ application သည် Gemini API Key ကို Environment variables ထဲတွင် ထည့်သွင်းရန် **မလိုအပ်ပါ**။ Application dashboard ထဲတွင် Interactive UI (Settings Modal) မှတစ်ဆင့် တိုက်ရိုက်ထည့်သွင်းအသုံးပြုရမည့် ပုံစံဖြစ်သည်။
 
 ### ၁။ Local setup ကို စစ်ဆေးခြင်း
-မင်းရဲ့ Next.js project ရဲ့ root ထဲမှာ `.env.local` ဖိုင်တစ်ခုရှိရပါမယ်။ ၎င်းထဲတွင် အောက်ပါ variable ၂ ခုသာ ပါဝင်ရပါမယ် -
+Project root ထဲမှာ `.env.example` ဖိုင်တစ်ခု ပါဝင်ပြီးသားဖြစ်ပါတယ်။ ၎င်းကို copy ကူးပြီး `.env.local` အဖြစ် ပြောင်းလဲပေးပါ -
+```bash
+cp .env.example .env.local
+```
+ပြီးရင် `.env.local` ဖိုင်ထဲမှာ မင်းရဲ့ Supabase Dashboard (Settings > API) မှ ရရှိသော key များကို ဖြည့်ပေးပါ -
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
 ```
+
+> [!WARNING]
+> `SUPABASE_SERVICE_ROLE_KEY` သည် Admin Panel server actions များအတွက် မဖြစ်မနေ လိုအပ်ပါသည်။ ၎င်းမပါပါက Admin Dashboard ထဲဝင်သောအခါ "Supabase environment variables are missing" error ပေါ်ပါလိမ့်မယ်။
 
 ### ၂။ Project ကို Vercel ပေါ်တင်ခြင်း
 1. [Vercel Dashboard](https://vercel.com/) သို့ သွားပြီး Sign in ဝင်ပါ။
@@ -163,9 +171,10 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
    * **Framework Preset**: `Next.js`
    * **Root Directory**: `artitube-app` (မင်းရဲ့ app folder ကို ရွေးပါ)
 5. **Environment Variables** Section ကို ဖြန့်ချပါ။
-6. အောက်ပါ key-value ၂ ခုသာ ထည့်သွင်းပေးပါ -
+6. အောက်ပါ key-value ၃ ခုကို ထည့်သွင်းပေးပါ -
    * `NEXT_PUBLIC_SUPABASE_URL` = (မင်းရဲ့ Supabase project URL)
    * `NEXT_PUBLIC_SUPABASE_ANON_KEY` = (မင်းရဲ့ Supabase Anon Key)
+   * `SUPABASE_SERVICE_ROLE_KEY` = (မင်းရဲ့ Supabase Service Role Key - Settings > API > service_role secret)
 7. အားလုံးဖြည့်ပြီးပါက **Deploy** button ကို နှိပ်ပါ။ 
 8. Vercel domain link တစ်ခု (ဥပမာ - `https://artitube-app.vercel.app`) ကို ရရှိလာပါလိမ့်မယ်။
 
